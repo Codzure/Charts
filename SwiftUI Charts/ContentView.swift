@@ -22,12 +22,19 @@ struct ContentView: View {
             Chart{
                 ForEach(weekdays.indices, id:\.self){
                     idx in
-                    BarMark(x: .value("Day", weekdays[idx]), y: .value("workout(mins)", workouts[idx]))
+                    BarMark(
+                        x:.value("Day", weekdays[idx]),
+                        y:.value("workout(mins)", workouts[idx]))
                         .foregroundStyle(by: .value("Day", weekdays[idx]))
-                        .annotation{
+                        .annotation(){
                             Text("\(workouts[idx]) mins")
-                                .font(.caption)
+                                .font(.caption.bold())
+                                .foregroundColor(.primary)
                         }
+                    
+                    LineMark(x: .value("Day", weekdays[idx]), y: .value("workout(min)", workouts[idx]))
+                        .foregroundStyle(.orange)
+                        .lineStyle(StrokeStyle(lineWidth: 4))
                 }
             }
             .frame(height: 400)
